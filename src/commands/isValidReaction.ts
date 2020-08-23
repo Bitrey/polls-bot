@@ -44,6 +44,10 @@ export const isValidReaction = async (
             poll.answers[index].votedBy.includes(user.id)) ||
         null;
 
+    if (userHasAlreadyVoted === null) {
+        return reaction.users.remove(user.id);
+    }
+
     // Don't record new votes if poll has ended
     if (poll.isEnded) {
         try {
