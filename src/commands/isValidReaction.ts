@@ -39,7 +39,10 @@ export const isValidReaction = async (
     if (!poll) return;
 
     const index = getAnswerIndex(reaction.emoji.toString());
-    const userHasAlreadyVoted = poll.answers[index].votedBy.includes(user.id);
+    const userHasAlreadyVoted =
+        (poll.answers[index] &&
+            poll.answers[index].votedBy.includes(user.id)) ||
+        null;
 
     // Don't record new votes if poll has ended
     if (poll.isEnded) {
